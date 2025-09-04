@@ -83,12 +83,12 @@ Use pre-trained models to generate discriminative samples. The argument `--exp_t
 
 * Generate samples using ResNet-50:
 ```bash
-python distinguishable_method.py --model resnet50 --exp_tag 202508151725
+python discriminative_method.py --model resnet50 --exp_tag 202508151725
 ```
 
 * Generate samples using VGG-19:
 ```bash
-python distinguishable_method.py --model vgg19 --exp_tag 202508151725
+python discriminative_method.py --model vgg19 --exp_tag 202508151725
 ```
 
 ### 4. Attack pre-trained models
