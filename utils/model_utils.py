@@ -8,12 +8,13 @@ def create_model(model_name, pretrained=False, device=None):
     """
     Create and return a model instance based on its name.
     """
-    if model_name.startswith('resnet'):
+    model_name = model_name.lower()
+    if model_name == "resnet50":
         model = ResNet(model_name, pretrained=pretrained)
-    elif model_name.startswith('vgg'):
+    elif model_name == "vgg19":
         model = VGG(model_name, pretrained=pretrained)
     else:
-        raise RuntimeError(f"Unknown model: {model_name}")
+        raise RuntimeError(f"Unknown model: {model_name}, Please define the model.")
     
     if device:
         model = model.to(device)

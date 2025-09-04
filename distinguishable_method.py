@@ -13,7 +13,7 @@ from utils.common_utils import get_device
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Argument parser for distinguishable sample generation.")
-    parser.add_argument('--model', type=str, required=True, choices=['resnet50','vgg19'], help='Pretrained model for generating distinguishable samples.')
+    parser.add_argument('--model', type=str, required=True, help='Pretrained model for generating distinguishable samples.')
     parser.add_argument('--exp_tag', type=str, required=True, help='Unique experiment identifier used to create results directory.')
     return parser.parse_args()
 

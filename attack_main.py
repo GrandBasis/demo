@@ -14,9 +14,9 @@ from utils.common_utils import get_device
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Argument parser for model attack.")
-    parser.add_argument('--model', type=str, required=True, choices=['resnet50','vgg19'], help='Target pretrained model for attack evaluation.')
+    parser.add_argument('--model', type=str, required=True, help='Target pretrained model for attack evaluation.')
     parser.add_argument('--exp_tag', type=str, required=True, help='Unique experiment identifier used to create results directory.')
-    parser.add_argument('--attack', type=str, required=True, choices=['fine_tune','quantization'], help='Attack methodology to execute.')
+    parser.add_argument('--attack', type=str, required=True, help='Attack methodology to execute.')
     return parser.parse_args()
 
 if __name__ == "__main__":
@@ -42,7 +42,7 @@ if __name__ == "__main__":
         # Apply quantization to the model
         model = quantize_model(model, num_bits=8)
     else:
-        raise RuntimeError("Attack type not found")  
+        raise RuntimeError("Attack type not found. Please define the attack method.")  
     
     # Save the state dictionary of the attacked model
     exp_tag = os.path.join(args.exp_tag, "attacks", args.attack)

@@ -11,9 +11,9 @@ from utils.common_utils import get_device, write_json_result
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Argument parser for authentication.")
-    parser.add_argument('--surrogate_model', type=str, required=True, choices=['resnet50','vgg19'], help='Surrogate model used for attack generation.')
-    parser.add_argument('--target_model', type=str, required=True, choices=['resnet50','vgg19'], help='Target model to evaluate attack against.')
-    parser.add_argument('--attack', type=str, required=True, choices=['fine_tune','quantization'], help='Attack method name.')
+    parser.add_argument('--surrogate_model', type=str, required=True, help='Surrogate model used for attack generation.')
+    parser.add_argument('--target_model', type=str, required=True, help='Target model to evaluate attack against.')
+    parser.add_argument('--attack', type=str, required=True, help='Attack method name.')
     parser.add_argument('--exp_tag', type=str, required=True, help='Unique experiment identifier used to create results directory.')
     return parser.parse_args()
 
