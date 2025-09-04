@@ -75,7 +75,7 @@ pip install -r requirements.txt
 
 ### 2. Download pre-trained models
 
-Download [resnet50.pth][https://github.com/GrandBasis/demo/releases/download/v1.0.0/resnet50.pth] and [vgg19.pth][https://github.com/GrandBasis/demo/releases/download/v1.0.0/vgg19.pth] into the `models/` directory before running experiments.
+Click download [resnet50.pth](https://github.com/GrandBasis/demo/releases/download/v1.0.0/resnet50.pth) and [vgg19.pth](https://github.com/GrandBasis/demo/releases/download/v1.0.0/vgg19.pth) into the `models/` directory before running experiments.
 
 ### 3. Generate discriminative samples
 
