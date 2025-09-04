@@ -56,7 +56,7 @@ pip install -r requirements.txt
 ├── utils/                     # Utility functions
 ├── attack_main.py             # Attack launching script
 ├── authentication.py          # Verification and authentication procedure
-├── discriminative_method.py  # Core implementation of watermarking method
+├── discriminative_method.py   # Core implementation of watermarking method
 ├── requirements.txt           # Environment dependencies
 ├── README.md                  # Project documentation
 ```
