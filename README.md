@@ -15,12 +15,16 @@ This repository contains the official PyTorch implementation for our ACM MM 2025
 
 ## Abstract
 
-Deep neural networks on cloud platforms face increasing security threats, especially as AI services often deploy diverse models for the same task. Existing watermarking methods struggle to distinguish benign modifications from malicious attacks in cross-model scenarios.  
-We propose a **non-intrusive cross-model watermarking method** that generates discriminative samples as universal keys, enabling robust and transferable authentication **without modifying model parameters or architectures**. A novel margin enhancement loss amplifies the confidence gap between benign and malicious behaviors, ensuring high transferability and strong discriminability across models.
+Deep neural networks on cloud platforms face growing security threats, with AI services increasingly relying on heterogeneous models for the same task to meet diverse user needs. Existing methods fail to distinguish benign modifications from malicious attacks in cross-model scenarios.
 
-**Key highlights:**
-- **Non-intrusive:** No need to change model parameters or structure.  
-- **Highly transferable:** Works across different architectures for the same task.  
+To address this challenge, we propose a non-intrusive cross-model watermarking method that generates discriminative samples as universal keys, enabling authentication without altering model parameters or architectures.
+
+Specifically, we introduce a margin enhancement loss to amplify confidence gaps between benign and malicious behaviors, ensuring high transferability across models.
+
+Both theoretical analysis and experimental results demonstrate the high efficacy of our proposed method. The generated samples maintain high visual fidelity (SSIM > 0.99), achieve over 3 times higher discriminability than existing methods, retain over 93\% accuracy under benign modifications, and detect malicious attacks with accuracy dropping below 9\%.
+
+Overall, our proposed method provides a robust, transferable, and non-intrusive solution for cross-model authentication, making it ideal for real-world applications where security is critical.
+ 
 
 For more details, please refer to the full paper.
 
@@ -37,7 +41,7 @@ For more details, please refer to the full paper.
 
 Install dependencies via:
 ```bash
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ---
@@ -52,7 +56,7 @@ pip3 install -r requirements.txt
 ├── utils/                     # Utility functions
 ├── attack_main.py             # Attack launching script
 ├── authentication.py          # Verification and authentication procedure
-├── distinguishable_method.py  # Core implementation of watermarking method
+├── discriminative_method.py  # Core implementation of watermarking method
 ├── requirements.txt           # Environment dependencies
 ├── README.md                  # Project documentation
 ```
@@ -66,12 +70,12 @@ This project provides a complete workflow for generating discriminative samples,
 ### 1. Install dependencies
 
 ```bash
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ### 2. Download pre-trained models
 
-Download `resnet50.pth` and `vgg19.pth` into the `models/` directory before running experiments.
+Download [resnet50.pth][https://github.com/GrandBasis/demo/releases/download/v1.0.0/resnet50.pth] and [vgg19.pth][https://github.com/GrandBasis/demo/releases/download/v1.0.0/vgg19.pth] into the `models/` directory before running experiments.
 
 ### 3. Generate discriminative samples
 
@@ -79,12 +83,12 @@ Use pre-trained models to generate discriminative samples. The argument `--exp_t
 
 * Generate samples using ResNet-50:
 ```bash
-python3 distinguishable_method.py --model resnet50 --exp_tag 202508151725
+python distinguishable_method.py --model resnet50 --exp_tag 202508151725
 ```
 
 * Generate samples using VGG-19:
 ```bash
-python3 distinguishable_method.py --model vgg19 --exp_tag 202508151725
+python distinguishable_method.py --model vgg19 --exp_tag 202508151725
 ```
 
 ### 4. Attack pre-trained models
@@ -93,14 +97,14 @@ We simulate fine-tuning (`fine_tune`) and quantization (`quantization`) attacks.
 
 * Attacking VGG-19:
 ```bash
-python3 attack_main.py --model vgg19 --exp_tag 202508151725 --attack fine_tune
-python3 attack_main.py --model vgg19 --exp_tag 202508151725 --attack quantization
+python attack_main.py --model vgg19 --exp_tag 202508151725 --attack fine_tune
+python attack_main.py --model vgg19 --exp_tag 202508151725 --attack quantization
 ```
 
 * Attacking ResNet-50:
 ```bash
-python3 attack_main.py --model resnet50 --exp_tag 202508151725 --attack fine_tune
-python3 attack_main.py --model resnet50 --exp_tag 202508151725 --attack quantization
+python attack_main.py --model resnet50 --exp_tag 202508151725 --attack fine_tune
+python attack_main.py --model resnet50 --exp_tag 202508151725 --attack quantization
 ```
 
 ### 5. Authentication
@@ -109,14 +113,14 @@ Verify the attack effect using discriminative samples generated from one model (
 
 * Using ResNet-50 samples to verify VGG-19:
 ```bash
-python3 authentication.py --surrogate_model resnet50 --target_model vgg19 --attack fine_tune --exp_tag 202508151725
-python3 authentication.py --surrogate_model resnet50 --target_model vgg19 --attack quantization --exp_tag 202508151725
+python authentication.py --surrogate_model resnet50 --target_model vgg19 --attack fine_tune --exp_tag 202508151725
+python authentication.py --surrogate_model resnet50 --target_model vgg19 --attack quantization --exp_tag 202508151725
 ```
 
 * Using VGG-19 samples to verify ResNet-50:
 ```bash
-python3 authentication.py --surrogate_model vgg19 --target_model resnet50 --attack quantization --exp_tag 202508151725
-python3 authentication.py --surrogate_model vgg19 --target_model resnet50 --attack fine_tune --exp_tag 202508151725
+python authentication.py --surrogate_model vgg19 --target_model resnet50 --attack quantization --exp_tag 202508151725
+python authentication.py --surrogate_model vgg19 --target_model resnet50 --attack fine_tune --exp_tag 202508151725
 ```
 
 **Note:** All results will be saved in a directory named after the `--exp_tag`. Authentication results are stored in `authentication.json`.
